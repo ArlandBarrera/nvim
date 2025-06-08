@@ -26,6 +26,7 @@ return {
 
 			-- Setup mason so it can manage 3rd party LSP servers
 			require("mason").setup({
+				-- modifiable = true, -- just a test
 				ui = {
 					border = "rounded",
 				},
@@ -37,38 +38,38 @@ return {
 			})
 
 			-- Override tsserver diagnostics to filter out specific messages
-			local messages_to_filter = {
-				"This may be converted to an async function.",
-				"'_Assertion' is declared but never used.",
-				"'__Assertion' is declared but never used.",
-				"The signature '(data: string): string' of 'atob' is deprecated.",
-				"The signature '(data: string): string' of 'btoa' is deprecated.",
-			}
+			-- local messages_to_filter = {
+			-- 	"This may be converted to an async function.",
+			-- 	"'_Assertion' is declared but never used.",
+			-- 	"'__Assertion' is declared but never used.",
+			-- 	"The signature '(data: string): string' of 'atob' is deprecated.",
+			-- 	"The signature '(data: string): string' of 'btoa' is deprecated.",
+			-- }
 
-			local function tsserver_on_publish_diagnostics_override(_, result, ctx, config)
-				local filtered_diagnostics = {}
-
-				for _, diagnostic in ipairs(result.diagnostics) do
-					local found = false
-					for _, message in ipairs(messages_to_filter) do
-						if diagnostic.message == message then
-							found = true
-							break
-						end
-					end
-					if not found then
-						table.insert(filtered_diagnostics, diagnostic)
-					end
-				end
-
-				result.diagnostics = filtered_diagnostics
-
-				vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-			end
+			-- local function tsserver_on_publish_diagnostics_override(_, result, ctx, config)
+			-- 	local filtered_diagnostics = {}
+			--
+			-- 	for _, diagnostic in ipairs(result.diagnostics) do
+			-- 		local found = false
+			-- 		for _, message in ipairs(messages_to_filter) do
+			-- 			if diagnostic.message == message then
+			-- 				found = true
+			-- 				break
+			-- 			end
+			-- 		end
+			-- 		if not found then
+			-- 			table.insert(filtered_diagnostics, diagnostic)
+			-- 		end
+			-- 	end
+			--
+			-- 	result.diagnostics = filtered_diagnostics
+			--
+			-- 	vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+			-- end
 
 			-- LSP servers to install (see list here: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers )
 			-- NOTE: indicate mason wich servers to auto install
-			-- Install in Mason: clang_format, mypy, black
+			-- Install in Mason: clang_format, mypy, black, lua_ls, lua-language-server, marksman
 			--
 			local servers = {
 				bashls = {},
@@ -81,10 +82,14 @@ return {
 				html = {},
 				jsonls = {},
 				lua_ls = {
+					Lua = {
+						diagnostics = { globals = { "vim" } },
+					},
 					settings = {
 						Lua = {
 							workspace = { checkThirdParty = false },
 							telemetry = { enabled = false },
+							-- diagnostics = { globals = { "vim" } },
 						},
 					},
 				},
@@ -101,19 +106,19 @@ return {
 				-- tailwindcss = {
 				-- filetypes = { "reason" },
 				-- },
-				tsserver = {
-					settings = {
-						experimental = {
-							enableProjectDiagnostics = true,
-						},
-					},
-					handlers = {
-						["textDocument/publishDiagnostics"] = vim.lsp.with(
-							tsserver_on_publish_diagnostics_override,
-							{}
-						),
-					},
-				},
+				-- tsserver = {
+				-- 	settings = {
+				-- 		experimental = {
+				-- 			enableProjectDiagnostics = true,
+				-- 		},
+				-- 	},
+				-- 	handlers = {
+				-- 		["textDocument/publishDiagnostics"] = vim.lsp.with(
+				-- 			tsserver_on_publish_diagnostics_override,
+				-- 			{}
+				-- 		),
+				-- 	},
+				-- },
 				yamlls = {},
 			}
 
@@ -195,14 +200,14 @@ return {
 			})
 
 			-- Configure borderd for LspInfo ui
-			require("lspconfig.ui.windows").default_options.border = "rounded"
+			-- require("lspconfig.ui.windows").default_options.border = "rounded"
 
 			-- Configure diagostics border
-			vim.diagnostic.config({
-				float = {
-					border = "rounded",
-				},
-			})
+			-- vim.diagnostic.config({
+			-- 	float = {
+			-- 		border = "rounded",
+			-- 	},
+			-- })
 		end,
 	},
 }
