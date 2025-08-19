@@ -34,7 +34,9 @@ return {
 
 			-- Configure mason to auto install servers
 			require("mason-lspconfig").setup({
-				automatic_installation = { exclude = { "ocamllsp", "gleam" } },
+				automatic_enable = true,
+				automatic_installation = {},
+				ensure_installed = {},
 			})
 
 			-- Override tsserver diagnostics to filter out specific messages
@@ -69,7 +71,7 @@ return {
 
 			-- LSP servers to install (see list here: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers )
 			-- NOTE: indicate mason wich servers to auto install
-			-- Install in Mason: clang_format, mypy, black, lua_ls, lua-language-server, marksman
+			-- Install in Mason: clang_format, pyright, ruff, lua_ls, lua-language-server, marksman
 			--
 			local servers = {
 				bashls = {},
@@ -77,7 +79,7 @@ return {
 					filetypes = { "c" },
 				},
 				cssls = {},
-				gleam = {},
+				-- gleam = {},
 				-- graphql = {},
 				html = {},
 				jsonls = {},
@@ -95,7 +97,7 @@ return {
 				},
 				marksman = {},
 				-- nil_ls = {},
-				ocamllsp = {},
+				-- ocamllsp = {},
 				-- prismals = {},
 				pyright = {
 					filetypes = { "python" },
@@ -119,7 +121,7 @@ return {
 				-- 		),
 				-- 	},
 				-- },
-				yamlls = {},
+				-- yamlls = {},
 			}
 
 			-- Default handlers for LSP
@@ -180,7 +182,7 @@ return {
 					formatting.clang_format,
 					formatting.prettier,
 					formatting.stylua,
-					formatting.ocamlformat,
+					-- formatting.ocamlformat,
 					formatting.black,
 
 					-- diagnostics
