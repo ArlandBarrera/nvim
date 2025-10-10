@@ -36,7 +36,7 @@ return {
 			require("mason-lspconfig").setup({
 				automatic_enable = true,
 				automatic_installation = {},
-				ensure_installed = {},
+				ensure_installed = { "bashls", "lua_ls", "jsonls", "marksman", "sqlls", "html", "cssls" },
 			})
 
 			-- Override tsserver diagnostics to filter out specific messages
