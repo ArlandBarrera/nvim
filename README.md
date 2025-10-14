@@ -1,5 +1,9 @@
 # nvim
 
-Confguración personalizada de nvim.
+Custom neovim config.
 
-Colocar esto dentro del directorio `~/.config/`. Esto para el `runtime` de nvim.
+This is located in `~/.config/`.
+
+## Plugins 🗂️
+
+- vimtex: requires a TeX installation in the system (e.g. TeX Live).
