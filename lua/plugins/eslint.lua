@@ -1,11 +1,7 @@
 return {
 	"esmuellert/nvim-eslint",
-	dependencies = {
-		"neovim/nvim-lspconfig",
-	},
+	event = { "BufReadPost" },
 	config = function()
-		require("nvim-eslint").setup({
-			auto_fix_on_save = true,
-		})
+		require("nvim-eslint").setup({})
 	end,
 }

@@ -160,15 +160,16 @@ return {
 			end
 
 			-- Iterate over our servers and set them up
-			for name, config in pairs(servers) do
-				require("lspconfig")[name].setup({
-					capabilities = default_capabilities,
-					filetypes = config.filetypes,
-					handlers = vim.tbl_deep_extend("force", {}, default_handlers, config.handlers or {}),
-					on_attach = on_attach,
-					settings = config.settings,
-				})
-			end
+			-- for name, config in pairs(servers) do
+			-- 	-- since nvim 0.11
+			-- 	vim.lsp.config(name).setup({
+			-- 		capabilities = default_capabilities,
+			-- 		filetypes = config.filetypes,
+			-- 		handlers = vim.tbl_deep_extend("force", {}, default_handlers, config.handlers or {}),
+			-- 		on_attach = on_attach,
+			-- 		settings = config.settings,
+			-- 	})
+			-- end
 
 			-- Congifure LSP linting, formatting, diagnostics, and code actions
 			local formatting = null_ls.builtins.formatting
