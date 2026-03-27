@@ -25,7 +25,7 @@ return {
         return notify(message, level, merged_opts)
       end
 
-      -- Update colors to use catpuccino colors
+      -- Update colors to use catppuccin colors
       vim.cmd [[
         highlight NotifyERRORBorder guifg=#ed8796
         highlight NotifyERRORIcon guifg=#ed8796
